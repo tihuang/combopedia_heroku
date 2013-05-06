@@ -1,2 +1,2 @@
 web: gunicorn combopedia.wsgi
-web: python manage.py collectstatic 
+web: python manage.py collectstatic --no-input
