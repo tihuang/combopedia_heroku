@@ -6,6 +6,8 @@ import os
 
 # Create your views here.
 def menu(request):
-    print os.getcwd()
     return render_to_response('menu.html',
                               context_instance=RequestContext(request))
+
+def create(request):
+    
