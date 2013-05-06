@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+<title>Combopedia - Enter Your Combo</title>
+<script type="text/javascript" src="external_js/jquery-1.9.0.min.js"></script>
+<script type="text/javascript" src="external_js/jquery-ui-1.10.2.custom.min.js"></script>
+<!-- Load style sheets -->
+<link rel="stylesheet" type="text/css" href="css/gamepad-style.css" />
+<link rel="stylesheet" type="text/css" href="css/menu.css" />
+<link rel="stylesheet" type="text/css" href="css/common.css" />
+<link rel="stylesheet" type="text/css" href="css/comboForm.css" />
+
+
+<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+<link rel="stylesheet" type="text/css" href="css/font-awesome.min.css" />
+
+<link rel="stylesheet" type="text/css" href="css/comboInput.css" />
+<!-- Load any supplemental Javascript libraries here -->
+
+
+<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+<script type="text/javascript" src="js/comboInput.js"></script>
+<script type="text/javascript" src="js/comboForm.js"></script>
+<script type="text/javascript" src="js/gamepad.js"></script>
+
+<script type="text/javascript" src="js/login.js"></script>
+
+</head>
+
+<body>
+
+	<!-- Navigation -->
+	<div class="navbar navbar-inverse navbar-fixed-top">
+		<div class="navbar-inner">
+			<div class="container-fluid">
+			  <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+				<span class="icon-bar"></span>
+			  </button>
+			  <a class="brand" href="./menu.html"><img src="img/logo/logo.png" style="max-height: 25px;"/></a>
+			  <div class="nav-collapse collapse">
+				<form class="navbar-form pull-right" id='loginForm'>
+				  <input class="span2" type="text" placeholder="Email">
+				  <input class="span2" type="password" placeholder="Password">
+				  <button type="submit" class="btn">Sign in</button>
+				</form>
+			  </div><!--/.nav-collapse -->
+			</div>
+		</div>
+	</div>
+	
+	<!-- Modal -->
+	<div class="modal hide fade" id='loginModal'>
+	  <div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		<h3>Sign In</h3>
+		
+   	  </div>
+	  <div class="modal-body">
+		<form id='existingUsers'>
+		  <fieldset>
+			<legend>Existing Users</legend>
+			<label>Username</label>
+			<input type="text" placeholder="joe123" id="loginUsername">
+			<label>Password</label>
+			<input type="text" placeholder="joe123" id="loginPassword">
+			<button type="submit" class="btn btn-primary">Login</button>
+		  </fieldset>
+		</form>
+		
+		<form id='signup'>
+		  <fieldset>
+			<legend>New Users</legend>
+			<label>Username</label>
+			<input type="text" placeholder="joe123" id="newUsername">
+			<label>Password</label>
+			<input type="text" placeholder="joe123" id="newPassword">
+			<label>Password Confirmation</label>
+			<input type="text" placeholder="joe123" id="newPassword2">
+			<button type="submit" class="btn btn-primary">Signup</button>
+		  </fieldset>
+		</form>
+		
+	  </div>
+
+	</div>
+	
+	
+<div class='container-fluid' id="pageContainer">
+	<div class='row-fluid'>
+		
+		<div class="span12" id="inputProgressWrapper">
+			<ul id="inputProgress">
+				  <a href='#'><li class="active incomplete stage" id='comboDataProgress'>Combo Data <br /><span>INCOMPLETE</span></li></a>
+				  <li class="arrow"><i class="icon-angle-right"></i></li>
+				  <a href='#'><li class="incomplete stage" id='moveInputProgress'>Move Input <br /><span>INCOMPLETE</span> </li></a>
+				  <li class="arrow"><i class="icon-angle-right"></i></li>
+				  <a href='#'><li class="stage" id='confirmationProgress'> Confirmation <br /> <span> &nbsp; </span></li></a>
+			</ul>
+		</div>
+	</div>
+	<div class='row-fluid'>
+		
+		<div id="carouselWrapper" class="span12">
+			<div id="inputCarousel" class="carousel slide">
+				<ol class="carousel-indicators">
+					<li data-target="#inputCarousel" data-slide-to="0" class="active"></li>
+					<li data-target="#inputCarousel" data-slide-to="1"></li>
+					<li data-target="#inputCarousel" data-slide-to="2"></li>
+				</ol>
+				
+				<div class="carousel-inner" id="inputCarouselInner">
+				
+					<!-- Combo data -->
+					
+					<div class="active item" id="comboData">
+
+						<h2>Combo Data</h2>
+						<div class="form-horizontal" id="metaDataForm">
+							<div class="control-group">
+								<label class="control-label">Combo Name</label>
+								<div class="controls">
+									<input type="text" placeholder="Name">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Character</label>
+								<div class="controls">
+									<select id='charSelect'>
+										<option>Aigis</option>
+										<option>Akihiko Sanada</option>
+										<option>Chie Satonaka</option>
+										<option>Elizabeth</option>
+										<option>Kanji Tatsumi</option>
+										<option>Labrys</option>
+										<option>Mitsuru Kirijo</option>
+										<option>Naoto Shirogane</option>
+										<option>Shadow Labrys</option>
+										<option>Teddie</option>
+										<option>Yosuke Hanamura</option>
+										<option>Yu Narukami</option>
+										<option>Yukiko Amagi</option>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Type</label>
+								<div class="controls">
+									<select>
+										<option>Kick</option>
+										<option>Jab</option>
+										<option>Basic</option>
+							  <option>Special</option>
+							  <option>Punch</option>
+									</select>
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Damage</label>
+								<div class="controls">
+									<input type="text" class="input-small" placeholder="Damage">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Meter Gain</label>
+								<div class="controls">
+									<input type="text" class="input-small" placeholder="Gain">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Meter Drain</label>
+								<div class="controls">
+									<input type="text" class="input-small" placeholder="Drain">
+								</div>
+							</div>
+							<div class="control-group">
+								<label class="control-label">Difficulty</label>
+								<div class="controls">
+							  <div class="0 star-rating" id="fireRating">
+								<i class="icon-star-empty"></i>
+								<i class="icon-star-empty"></i>
+								<i class="icon-star-empty"></i>
+								<i class="icon-star-empty"></i>
+								<i class="icon-star-empty"></i>
+							  </div>
+								</div>
+							</div>
+						</div>
+						
+						<div id="charImg"></div>
+						
+						<!-- <div class="loading"><i class="icon-spinning icon-spin"></i></div> -->
+					
+					</div>
+					
+					<!-- Move Input -->
+					<div class="item" id="moveInput">
+						<h2>Move Input</h2>
+						<div id='btnPane' class='span7'>
+							<button id="clearMove" class = "btn btn-large btn-danger">Clear Move</button>
+
+							<button id="addMove" class = "btn btn-large btn-primary">Add Move</button>
+						</div>
+						<div id='textMoveInput' class='span7'>
+							<textarea placeholder="Text Input (e.g. 236AB)"></textarea>
+						</div>
+						<div id='container-gamepad' class='span7'>
+						</div>
+						
+						<div id="moveList" class='span4'>
+							<h4>Preview</h4>
+							<ul id='previewMove'>
+								<li class='singleMove preview'>
+									<div class="moveText"></div>
+									<div class='moveImg'>
+										<img id='numImage' />
+										<img id='btnImage' />
+									
+									</div>
+<!-- 								<div id="numImage"><img class="img-polaroid" /></div>
+								<div id="btnImage"><img class="img-polaroid" /></div>
+ -->								
+								</li>
+							</ul>
+							
+							<h4>Combo Moves</h4>
+							<ul id="moves">
+							</ul>
+						</div>
+						<!-- <div class="loading"><i class="icon-spinning icon-spin"></i></div> -->
+					</div>
+					
+					<!-- Preview/Confirm Submission -->
+					<div class="item" id="confirmation">
+						<h2>Confirmation</h2>
+						<h2>Confirmation</h2>
+						<h2>Confirmation</h2>
+						<h2>Confirmation</h2>
+						<h2>Confirmation</h2>
+						<a href="menu.html">
+							<button class = "btn btn-large" style="position:absolute;bottom:10px;right:10px;overflow:hidden;">Submit Combo</button>
+						</a>
+						<!-- <div class="loading"><i class="icon-spinning icon-spin"></i></div> -->
+					</div>
+				<!-- Carousel nav -->
+				
+				</div>
+				<a class="carousel-control left" href="#inputCarousel" data-slide="prev">&lsaquo;</a>
+				<a class="carousel-control right" href="#inputCarousel" data-slide="next">&rsaquo;</a>
+			</div>
+		
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>
