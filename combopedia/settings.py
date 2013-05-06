@@ -79,7 +79,7 @@ STATICFILES_DIRS = (
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
 
-    os.path.join(SITE_ROOT, '..', 'p4u/static_combopedia'), 
+    os.path.join(SITE_ROOT, '..', 'p4u/static_combopedia/static'), 
 )
 
 # List of finder classes that know how to find static files in
@@ -119,7 +119,7 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    os.path.join(SITE_ROOT, '..', 'p4u/views'),    
+    os.path.join(SITE_ROOT, '..', 'p4u/static_combopedia'),    
 )
 
 INSTALLED_APPS = (
