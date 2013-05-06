@@ -10,4 +10,5 @@ def menu(request):
                               context_instance=RequestContext(request))
 
 def create(request):
-    
+    return render_to_response('menu.html',
+                              context_instance=RequestContext(request))
