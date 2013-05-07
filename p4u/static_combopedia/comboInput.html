@@ -68,13 +68,13 @@
 							<div class="control-group">
 								<label class="control-label">Combo Name</label>
 								<div class="controls">
-									<input type="text" placeholder="Name">
+									<input type="text" placeholder="Name" name='name' value='Unnamed Combo'>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">Character</label>
 								<div class="controls">
-									<select id='charSelect'>
+									<select id='charSelect' name='character'>
 										<option>Aigis</option>
 										<option>Akihiko Sanada</option>
 										<option>Chie Satonaka</option>
@@ -94,42 +94,43 @@
 							<div class="control-group">
 								<label class="control-label">Type</label>
 								<div class="controls">
-									<select>
-										<option>Kick</option>
+									<select name='combo_type'>
 										<option>Jab</option>
-										<option>Basic</option>
-							  <option>Special</option>
-							  <option>Punch</option>
+										<option>Mixup</option>
+										<option>Crossup</option>
+                    <option>Counter</option>
+                    <option>Fatal Counte</option>
+                    <option>Throw</option>
 									</select>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">Damage</label>
 								<div class="controls">
-									<input type="text" class="input-small" placeholder="Damage">
+									<input type="text" class="input-small" placeholder="Damage" name='damage'>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">Meter Gain</label>
 								<div class="controls">
-									<input type="text" class="input-small" placeholder="Gain">
+									<input type="text" class="input-small" placeholder="Meter Gain" name='meter_gain'>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">Meter Drain</label>
 								<div class="controls">
-									<input type="text" class="input-small" placeholder="Drain">
+									<input type="text" class="input-small" placeholder="Meter Drain" name='meter_drain'>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">Difficulty</label>
 								<div class="controls">
 							  <div class="0 star-rating" id="fireRating">
-								<i class="icon-star"></i>
-								<i class="icon-star-empty"></i>
-								<i class="icon-star-empty"></i>
-								<i class="icon-star-empty"></i>
-								<i class="icon-star-empty"></i>
+                  <i class="icon-star"></i>
+                  <i class="icon-star-empty"></i>
+                  <i class="icon-star-empty"></i>
+                  <i class="icon-star-empty"></i>
+                  <i class="icon-star-empty"></i>
 							  </div>
 								</div>
 							</div>
@@ -185,9 +186,7 @@
 						<h2>Confirmation</h2>
 						<h2>Confirmation</h2>
 						<h2>Confirmation</h2>
-						<a href="/p4u">
-							<button class = "btn btn-large" style="position:absolute;bottom:10px;right:10px;overflow:hidden;">Submit Combo</button>
-						</a>
+            <button id='submitCombo' class = "btn btn-large" style="position:absolute;bottom:10px;right:10px;overflow:hidden;">Submit Combo</button>
 						<!-- <div class="loading"><i class="icon-spinning icon-spin"></i></div> -->
 					</div>
 				<!-- Carousel nav -->

@@ -1,4 +1,6 @@
 
+
+
 // All valid joystick moves
 var VALID_JOYSTICK = ["", "1","2","3","4","5","6","7","8","9","214","236","412","478","632","698","874","896","21478","23698","41236","47896","63214","69874","87412","89632","2147896","2369874","4123698","4789632","6321478","6987412","8741236","8963214"];
 var VALID_BUTTON = ["", "A","AB","ABC","ABCD","ABD","AC","ACD","AD","B","BC","BCD","BD","C","CD","D"];
@@ -22,7 +24,9 @@ var isValid = function(nums, btns) {
 var Gamepad = function() {
 	Gamepad.inputQueue = [];
 	Gamepad.btnSel = '';
-	
+
+    var combo_input;
+
 	var DEBUG = false;
 
 	var gamepad = $('<div id="gamepad">')

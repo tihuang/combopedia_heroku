@@ -62,7 +62,14 @@
 
 				<div class="navbar" id='bottomBar'>
 					<div class="row-fluid">
+                  <div id='addNewCombo'>
+                  {% if user.is_authenticated %}
             			<a href="/p4u/create"><button class = "btn btn-large btn-danger" type="submit">Add New Combo</button></a>
+                  {% else %}
+                  <p>Log in to add combos </p>
+            			<button class = "btn btn-large btn-danger disabled" type="submit">Add New Combo (disabled)</button>
+                  {% endif %}
+                  </div> 
             			<div class='input-append pull-right'>
 						    <input type="text" class="navbar-inner" placeholder="Search" id="searchBar"></input>
 						    <button class='btn btn-large add-on navbar-inner'>

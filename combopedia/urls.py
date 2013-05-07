@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^login/', 'p4u.views.login_user',name='login'),
     url(r'^logout/', 'p4u.views.logout_user',name='logout'),
     url(r'^signup/', 'p4u.views.signup',name='signup'),
+    url(r'^p4u/submitCombo/', 'p4u.views.submit_combo',name='submitCombo'),
 
 #    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     # Uncomment the admin/doc line below to enable admin documentation:
