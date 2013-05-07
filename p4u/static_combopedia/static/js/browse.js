@@ -112,6 +112,7 @@ $(document).ready(function() {
 	$("#gainMin").keyup(function (e) {
 		checkOtherFields("gainMin");
 		gainmin = $('#gainMin').val();
+		alert(gainmin);
 		if(gainmin!=""){
 			$('#data tbody').children().each(function() {
 				gain = $(this).children()[5].innerHTML;
@@ -331,12 +332,13 @@ ComboData.fillComboData = function(charac, search, query) {
 		}
 			
 		var dataRow = $('<tr class="linkToComboPage">');
-
+		var flag = false;
 		for (var j = 0; j < ComboData.attributes.length; j++) {
 			var attribute = ComboData.attributes[j];
 
 			var firstName = combo.character.split(" ")[0];
 			if(charac=="allchars" || charac==firstName || charac==combo["character"]){
+				flag = true;
 				if(attribute=="combo"){
 					dataRow.append(convertToPicture(combo["combo"]));
 				} else if(attribute=="favorite"){
@@ -368,7 +370,9 @@ ComboData.fillComboData = function(charac, search, query) {
 			}
 			
 		}
-		$('#data tbody').append(dataRow);
+		if(flag){
+			$('#data tbody').append(dataRow);
+		}
 		
 		
 	}
@@ -422,7 +426,6 @@ var checkOtherFields = function(currentElem){
 			}
 		});	
 	}
-
 	$('#data tbody').children().each(function() {
 		comboName = $(this).children()[1].innerHTML.toLowerCase();
 		type = $(this).children()[3].innerHTML.toLowerCase();
@@ -451,4 +454,5 @@ var checkOtherFields = function(currentElem){
 
 		}
 	});
+
 }
