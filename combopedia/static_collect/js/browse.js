@@ -4,6 +4,11 @@ $(document).ready(function() {
 
 	$('#searchBar').keypress(function (e) {
   		if (e.which == 13) {
+  			query = document.getElementById('searchBar').value;
+  			if(query!=""){
+				ComboData.initTable();
+				ComboData.fillComboData("allchars",true,query);
+  			}
     		document.getElementById('searchBar').value="";
   		}
 
@@ -60,7 +65,7 @@ ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGa
 			damage: 150,
 			meterGain: 50,
 			meterDrain: 80,
-			difficulty: "1/5",
+			difficulty: 1,
 			favorite: false, 
 		},
 		{
@@ -71,7 +76,7 @@ ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGa
 			damage: 100,
 			meterGain: 90,
 			meterDrain: 30,
-			difficulty: "1/5",
+			difficulty: 1,
 			favorite: false,		
 		},
 		{
@@ -82,7 +87,7 @@ ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGa
 			damage: 240,
 			meterGain: 10,
 			meterDrain: 20,
-			difficulty: "2/5",
+			difficulty: 2,
 			favorite: false,		
 		},
 		{
@@ -93,7 +98,7 @@ ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGa
 			damage: 760,
 			meterGain: 0,
 			meterDrain: 90,
-			difficulty: "4/5",
+			difficulty: 4,
 			favorite: false,		
 		},
 		{
@@ -104,7 +109,7 @@ ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGa
 			damage: 90,
 			meterGain: 20,
 			meterDrain: 0,
-			difficulty: "1/5",
+			difficulty: 1,
 			favorite: false,		
 		},
 		{
@@ -115,7 +120,7 @@ ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGa
 			damage: 670,
 			meterGain: 5,
 			meterDrain: 40,
-			difficulty: "3/5",
+			difficulty: 3,
 			favorite: false,		
 		},
 		{
@@ -126,7 +131,7 @@ ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGa
 			damage: 650,
 			meterGain: 5,
 			meterDrain: 20,
-			difficulty: "4/5",
+			difficulty: 4,
 			favorite: false,		
 		},
 		{
@@ -137,7 +142,7 @@ ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGa
 			damage: 980,
 			meterGain: 50,
 			meterDrain: 20,
-			difficulty: "5/5",
+			difficulty: 5,
 			favorite: false,		
 		},
 	];
@@ -154,12 +159,26 @@ ComboData.initTable = function() {
 	$('#data thead').append(dataRow);
 };
 		
-ComboData.fillComboData = function(charac) {
+ComboData.fillComboData = function(charac, search, query) {
 
 	charac = typeof charac !== 'undefined' ? charac : "allchars";
+	search = typeof search !== 'undefined' ? search : false;
+	query = typeof query !== 'undefined' ? query : null;
 
-	for (var i = 0; i < comboData.length; i++) {
-		var combo = comboData[i];
+	var combos = [];
+	if (search){
+		for (var i = 0; i< comboData.length; i++) {
+			query.toLowerCase();
+			if(comboData[i]["character"].toLowerCase().indexOf(query) !== -1 || comboData[i]["name"].toLowerCase().indexOf(query) !== -1){
+			   combos.push(comboData[i]);
+			}
+		}
+	} else {
+		combos = comboData;
+	}
+
+	for (var i = 0; i < combos.length; i++) {
+		var combo = combos[i];
 
 		if(i==0){
 			$('#data').append($('<tbody>'));
@@ -182,7 +201,7 @@ ComboData.fillComboData = function(charac) {
 					}
 				} else if(attribute=="difficulty"){
 					elem = "<td>";
-					for(var k=0; k<parseInt(combo[attribute][0]); k++){
+					for(var k=0; k<combo[attribute]; k++){
 						elem = elem + "<i class='icon-star'></i>";
 					}
 					elem = elem + "</td>";
@@ -230,7 +249,7 @@ var dataRow = function() {
 var convertToPicture = function(listOfMoves){
 	imgMoves = $("<td class='comboCol'>");
 	for (var i = 0; i < listOfMoves.length; i++) {
-		imgMoves.append($("<img class='imgMoves' src=/static/img/moves/"+listOfMoves[i]+".png />"));
+		imgMoves.append($("<img class='imgMoves' src='/static/img/moves/"+listOfMoves[i]+".png' />"));
 	}
 	imgMoves.append($("<p></p><span>"+listOfMoves+"</span>"));
 	return imgMoves;
