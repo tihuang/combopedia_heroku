@@ -65,6 +65,7 @@ $(document).ready(function() {
           success: function() {
             $('#signup_error').text('');
             $('#loginModal').modal('hide');
+            location.reload();
           },
         }).error(function() {
           console.log('error');

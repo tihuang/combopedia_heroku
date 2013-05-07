@@ -44,6 +44,8 @@ def signup(request):
             u = User.objects.create_user(user, password)
             u.set_password(password)
             u.save()
+            user = authenticate(username=user, password=password)
+            login(request, user)
             return HttpResponse(status=200)
         except IntegrityError:
             return HttpResponse(status=403)
