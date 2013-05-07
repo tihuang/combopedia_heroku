@@ -19,7 +19,6 @@
 </head>
 
 <body>
-
 <div id="pageSurround">
  
 	<!-- Navigation -->
@@ -34,9 +33,10 @@
 			  <a class="brand" href="/p4u"><img src="/static/img/logo/logo.png" style="max-height: 25px;"/></a>
 			  <div class="nav-collapse collapse">
 				<form class="navbar-form pull-right" id='loginForm'>
-				  <input class="span2" type="text" placeholder="Email">
-				  <input class="span2" type="password" placeholder="Password">
+				  <input class="span2" name='username' type="text" placeholder="Email">
+				  <input class="span2" name='password' type="password" placeholder="Password">
 				  <button type="submit" class="btn">Sign in</button>
+      {% csrf_token %}
 				</form>
 			  </div><!--/.nav-collapse -->
 			</div>
@@ -51,30 +51,31 @@
 		
    	  </div>
 	  <div class="modal-body">
-		<form id='existingUsers'>
+		<form id='existing_login'>
 		  <fieldset>
 			<legend>Existing Users</legend>
 			<label>Username</label>
-			<input type="text" placeholder="joe123" id="loginUsername">
+			<input type="text" placeholder="joe123" name="username">
 			<label>Password</label>
-			<input type="text" placeholder="joe123" id="loginPassword">
+			<input type="text" placeholder="joe123" name="password">
 			<button type="submit" class="btn btn-primary">Login</button>
+	    <span id='login_error'></span>	
 		  </fieldset>
+      {% csrf_token %}
 		</form>
 		
 		<form id='signup'>
 		  <fieldset>
 			<legend>New Users</legend>
 			<label>Username</label>
-			<input type="text" placeholder="joe123" id="newUsername">
+			<input type="text" placeholder="joe123" name='username'>
 			<label>Password</label>
-			<input type="text" placeholder="joe123" id="newPassword">
-			<label>Password Confirmation</label>
-			<input type="text" placeholder="joe123" id="newPassword2">
+			<input type="text" placeholder="joe123" name='password'>
 			<button type="submit" class="btn btn-primary">Signup</button>
+	    <span id='signup_error'></span>	
 		  </fieldset>
+      {% csrf_token %}
 		</form>
-		
 	  </div>
 
 	</div>

@@ -13,6 +13,9 @@ urlpatterns = patterns('',
     url(r'^p4u/create/$', 'p4u.views.create', name='create'),
     url(r'^p4u/view/(?P<combo_id>\d+)/$', 'p4u.views.view', name='view'),
 
+    url(r'^login/', 'p4u.views.login_user',name='login'),
+    url(r'^signup/', 'p4u.views.signup',name='signup'),
+
 #    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     # Uncomment the admin/doc line below to enable admin documentation:
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
