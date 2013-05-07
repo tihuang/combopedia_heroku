@@ -1,3 +1,5 @@
+var numStars;
+
 $(document).ready(function() {
 
 	prevHighlight = "allchars";
@@ -55,6 +57,22 @@ $(document).ready(function() {
 				}
 			});
 		}
+	});
+
+	$("#fireRating i").click(function(e){
+		checkOtherFields("fireRating");
+		numStars = $(e.target)[0].className[0];
+		$('#data tbody').children().each(function() {
+			var tableNumStars = 0;
+			$(this).children().children().each(function(){
+				if($(this).attr("class")=="icon-star"){
+					tableNumStars++;
+				}
+			});
+			if(!eval(tableNumStars.toString()+$("#fireRatingPars").val()+numStars)){
+				$(this).hide();
+			}
+		});		
 	});
 
 	$("#damMin").keyup(function (e) {
@@ -382,6 +400,20 @@ var checkOtherFields = function(currentElem){
 		ComboData.fillComboData($("#charNameSearch").val());
 	} else{
 		ComboData.fillComboData();
+	}
+
+	if(currentElem!="fireRating"){
+		$('#data tbody').children().each(function() {
+			var tableNumStars = 0;
+			$(this).children().children().each(function(){
+				if($(this).attr("class")=="icon-star"){
+					tableNumStars++;
+				}
+			});
+			if(!eval(tableNumStars.toString()+$("#fireRatingPars").val()+numStars.toString())){
+				$(this).hide();
+			}
+		});	
 	}
 
 	$('#data tbody').children().each(function() {
