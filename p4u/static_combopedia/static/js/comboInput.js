@@ -7,14 +7,20 @@ $(document).ready(function() {
 		if ($('#inputCarouselInner').children(':first').hasClass('active')) {
 			$('.carousel-control.left').hide();
 			$('.carousel-control.right').show();
+			$("#step1complete").html("INCOMPLETE").css({'color':'red'});
+			$("#step2complete").html("Completed!").css({'color':'green'});
 			$('#comboDataProgress').addClass('active');
 		} else if ($('#inputCarouselInner').children(':last').hasClass('active')) {
 			$('.carousel-control.left').show();
 			$('.carousel-control.right').hide();
+			$("#step1complete").html("Completed!").css({'color':'green'});
+			$("#step2complete").html("Completed!").css({'color':'green'});
 			$('#confirmationProgress').addClass('active');
 		} else {
 			$('.carousel-control.left').show();
 			$('.carousel-control.right').show();
+			$("#step1complete").html("Completed!").css({'color':'green'});
+			$("#step2complete").html("INCOMPLETE").css({'color':'red'});
 			$('#moveInputProgress').addClass('active');
 		}
 	});
