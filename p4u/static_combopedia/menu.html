@@ -128,19 +128,19 @@
                 			<div class="control-group">
 								<label class="control-label">Character Name:</label>
 								<div class="controls">
-									<input type="text" placeholder="Character">
+									<input type="text" placeholder="Character" id="charNameSearch">
 								</div>
 							</div>
                 			<div class="control-group">
 								<label class="control-label">Combo Name:</label>
 								<div class="controls">
-									<input type="text" placeholder="Combo">
+									<input type="text" placeholder="Combo" id="comboNameSearch">
 								</div>
 							</div>
                 			<div class="control-group">
 								<label class="control-label">Type:</label>
 								<div class="controls">
-									<select>
+									<select id="typeSearch">
 										<option>Kick</option>
 										<option>Jab</option>
 										<option>Basic</option>
@@ -152,11 +152,20 @@
                 			<div class="control-group">
 								<label class="control-label">Difficulty:</label>
 								<div class="controls">
-									<select class="span3">
+									<div class="span3">
+									<select class="span12" id="fireRatingPars">
 										<option><=</option>
 										<option>==</option>
 										<option>>=</option>
 									</select>
+									</div>
+		   						    <div class="0 star-rating span4" id="fireRating">
+										<i class="icon-star-empty"></i>
+										<i class="icon-star-empty"></i>
+										<i class="icon-star-empty"></i>
+										<i class="icon-star-empty"></i>
+										<i class="icon-star-empty"></i>
+							  		</div>
 								</div>
 							</div>
                 		</div>
@@ -164,28 +173,28 @@
                 			<div class="control-group">
 								<label class="control-label">Damage:</label>
 								<div class="controls">
-									<input class="input-mini" type="text" placeholder="Min">
-									<input class="input-mini" type="text" placeholder="Max">
+									<input class="input-mini" type="text" placeholder="Min" id="damMin">
+									<input class="input-mini" type="text" placeholder="Max" id="damMax">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">Meter Gain:</label>
 								<div class="controls">
-									<input class="input-mini" type="text" placeholder="Min">
-									<input class="input-mini" type="text" placeholder="Max">
+									<input class="input-mini" type="text" placeholder="Min" id="gainMin">
+									<input class="input-mini" type="text" placeholder="Max" id="gainMax">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">Meter Drain:</label>
 								<div class="controls">
-									<input class="input-mini" type="text" placeholder="Min">
-									<input class="input-mini" type="text" placeholder="Max">
+									<input class="input-mini" type="text" placeholder="Min" id="drainMin">
+									<input class="input-mini" type="text" placeholder="Max" id="drainMax">
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">Show my favorites:</label>
 								<label class="checkbox controls">
-  									<input type="checkbox" value="">
+  									<input type="checkbox" value="" id="favSearch">
 								</label>
 							</div>
                 		</div>
