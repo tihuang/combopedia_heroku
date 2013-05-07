@@ -39,6 +39,11 @@ $(document).ready(function() {
 				}
 			});
 		}
+		$("#"+prevHighlight).removeClass('active');
+		name = $('#charNameSearch').val().split(" ")[0];
+		if(name=="All"){name="allchars";}
+		$("#"+name).addClass('active');
+		prevHighlight = name;
 		if($('tr:visible').length==1){
 			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}
@@ -192,8 +197,14 @@ $(document).ready(function() {
 	});
 
 	$(".side").click(function() {
+		dict = {'Labrys':'Labrys','Mitsuru':'Mitsuru Kirijo','Aigis':'Aigis',
+		'Naoto':'Naoto Shirogane','Yukiko':'Yukiko Amagi','Yu':'Yu Narukami',
+		'Elizabeth':'Elizabeth','Yosuke':'Yosuke Hanamura','Chie':'Chie Satonaka',
+		'Kanji':'Kanji Tatsumi','Teddie':'Teddie','Akihiko':'Akihiko Sanada',
+		'Shadow':'Shadow Labrys','allchars':'All'}
 		$("#"+prevHighlight).removeClass('active');
 		$("#"+this.id).addClass('active');
+		$('#charNameSearch').val(dict[this.id]);
 		prevHighlight = this.id;
 		ComboData.initTable();
 		ComboData.fillComboData(this.id);
