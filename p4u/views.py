@@ -1,7 +1,7 @@
 from django.template import Context, loader, RequestContext
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, Http404  
-from django.shortcuts import render_to_response, get_object_or_404
+from django.shortcuts import render_to_response, get_object_or_404, redirect
 import json
 import os
 from models import Combo, User
@@ -48,4 +48,6 @@ def signup(request):
         except IntegrityError:
             return HttpResponse(status=403)
         
-
+def logout_user(request):
+    logout(request)
+    return redirect('/p4u/')

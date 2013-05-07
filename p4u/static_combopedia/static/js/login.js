@@ -16,6 +16,7 @@ $(document).ready(function() {
             $('#login_error').text('');
             $('#loginModal').modal('hide');
             result = true;
+            location.reload();
           },
         }).error(function() {
           console.log('error');
@@ -23,7 +24,6 @@ $(document).ready(function() {
           $('#login_error').text('Incorrect username or password');
           result = false;
         });
-        return result;
 	});
 	
     $('#existing_login').submit(function(e) {
@@ -41,6 +41,7 @@ $(document).ready(function() {
             $('#login_error').text('');
             $('#loginModal').modal('hide');
             result = true;
+            location.reload();
           },
         }).error(function() {
           console.log('error');
@@ -48,7 +49,6 @@ $(document).ready(function() {
           $('#login_error').text('Incorrect username or password');
           result = false;
         });
-        return result;
     });
 
 
@@ -72,27 +72,4 @@ $(document).ready(function() {
         });
     });
 
-	var verifyLogin = function() {
-        var values = {};
-        $.each($('#signup').serializeArray(), function(i, field) {
-              values[field.name] = field.value;
-        });
-        var result;
-        $.ajax({
-          method: 'POST',
-          url: '/login/',
-          data: values,
-          success: function() {
-            $('#login_error').text('');
-            $('#loginModal').modal('hide');
-            result = true;
-          },
-        }).error(function() {
-          console.log('error');
-          $('#loginModal').modal('show');
-          $('#login_error').text('Incorrect username or password');
-          result = false;
-        });
-        return result;
-	};
 });

@@ -39,3 +39,15 @@ body {
   color: red;
   width: 100px;
 }
+
+#welcome {
+  font-size: 1.5em;
+  color: white;
+  float: right;
+  margin-top: 10px;
+}
+
+#logout {
+  float: right;
+  margin-top: 10px;
+}

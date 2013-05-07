@@ -14,6 +14,7 @@ urlpatterns = patterns('',
     url(r'^p4u/view/(?P<combo_id>\d+)/$', 'p4u.views.view', name='view'),
 
     url(r'^login/', 'p4u.views.login_user',name='login'),
+    url(r'^logout/', 'p4u.views.logout_user',name='logout'),
     url(r'^signup/', 'p4u.views.signup',name='signup'),
 
 #    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
