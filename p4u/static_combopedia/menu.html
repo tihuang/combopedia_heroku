@@ -119,10 +119,17 @@
 				<div class="navbar" id='bottomBar'>
 					<div class="row-fluid">
             			<a href="/p4u/create"><button class = "btn btn-large btn-danger" type="submit">Add New Combo</button></a>
-                		<input type="text" class="search-query navbar-inner navbar-search pull-right" placeholder="Search" id="searchBar"></input>
+            			<div class='input-append pull-right'>
+						    <input type="text" class="navbar-inner" placeholder="Search" id="searchBar"></input>
+						    <button class='btn btn-large add-on navbar-inner'>
+						        <i class="icon-search"></i>
+						    </button>
+						</div>
                 	</div>
                 	<div class="row-fluid">
-                		<a href="#" class="pull-right" id="expanddiv">Advanced Search</a>
+                		<span class="pull-right"><i class="icon-filter"></i></span>
+                		<a href="#" class="pull-right" id="expanddiv"> Show Advanced Search</a>
+                		<span class="pull-right"><i class="icon-chevron-up" style="padding-right:5px;" id="chevron"></i></span>
                 	</div>
                 	<div class="row-fluid" id="advsearch">
                 		<div class="span6 form-horizontal">
@@ -130,7 +137,7 @@
 								<label class="control-label">Character Name:</label>
 								<div class="controls">
 									<select id='charNameSearch'>
-										<option>None</option>
+										<option>All</option>
 										<option>Aigis</option>
 										<option>Akihiko Sanada</option>
 										<option>Chie Satonaka</option>
@@ -157,7 +164,7 @@
 								<label class="control-label">Type:</label>
 								<div class="controls">
 									<select id="typeSearch">
-										<option>None</option>
+										<option>All</option>
 										<option>Kick</option>
 										<option>Jab</option>
 										<option>Basic</option>

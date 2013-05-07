@@ -1,4 +1,4 @@
-var numStars;
+var numStars = 0;
 
 $(document).ready(function() {
 
@@ -18,12 +18,20 @@ $(document).ready(function() {
 
 	$('#expanddiv').click(function(){
 		$('#advsearch').slideToggle('fast');
+		icon = $('#chevron').attr("class");
+		if (icon=="icon-chevron-up"){
+			$("#chevron").removeClass().addClass("icon-chevron-down");
+			$("#expanddiv").html(" Hide Advanced Search");
+		} else{
+			$("#chevron").removeClass().addClass("icon-chevron-up");
+			$("#expanddiv").html(" Show Advanced Search");
+		}
 	});
 
 	$('#charNameSearch').click(function (e) {
 		checkOtherFields("charNameSearch");
 		chartoSearch = $('#charNameSearch').val().toLowerCase();
-		if(chartoSearch!="none"){
+		if(chartoSearch!="all"){
 			$('#data tbody').children().each(function() {
 				chara = $(this).children().children()[1].innerHTML.toLowerCase();
 				if(chara!=chartoSearch){
@@ -36,7 +44,7 @@ $(document).ready(function() {
 	$('#comboNameSearch').keyup(function (e) {
 		checkOtherFields("comboNameSearch");
 		ctoSearch = $('#comboNameSearch').val().toLowerCase();
-		if(ctoSearch!="none"){
+		if(ctoSearch!=""){
 			$('#data tbody').children().each(function() {
 				com = $(this).children()[1].innerHTML.toLowerCase();
 				if(com.indexOf(ctoSearch)==-1){
@@ -49,7 +57,7 @@ $(document).ready(function() {
 	$('#typeSearch').click(function (e) {
 		checkOtherFields("typeSearch");
 		typetoSearch = $('#typeSearch').val().toLowerCase();
-		if(typetoSearch!="none"){
+		if(typetoSearch!="all"){
 			$('#data tbody').children().each(function() {
 				type = $(this).children()[3].innerHTML.toLowerCase();
 				if(type!=typetoSearch){
@@ -394,15 +402,14 @@ var convertToPicture = function(listOfMoves){
 }
 
 var checkOtherFields = function(currentElem){
-	var elems = ["favSearch"];
 	ComboData.initTable();
-	if(currentElem!="charNameSearch" && $("#charNameSearch").val()!="None"){
+	if(currentElem!="charNameSearch" && $("#charNameSearch").val()!="All"){
 		ComboData.fillComboData($("#charNameSearch").val());
 	} else{
 		ComboData.fillComboData();
 	}
 
-	if(currentElem!="fireRating"){
+	if(currentElem!="fireRating" && numStars!=0){
 		$('#data tbody').children().each(function() {
 			var tableNumStars = 0;
 			$(this).children().children().each(function(){
@@ -422,10 +429,10 @@ var checkOtherFields = function(currentElem){
 		damage = $(this).children()[4].innerHTML;
 		metergain = $(this).children()[5].innerHTML;
 		meterdrain = $(this).children()[6].innerHTML;
-		if(currentElem!="comboNameSearch" && $("#comboNameSearch").val()!="None" && 
+		if(currentElem!="comboNameSearch" && $("#comboNameSearch").val()!="" && 
 			comboName.indexOf($("#comboNameSearch").val().toLowerCase())==-1){
 			$(this).hide();
-		} else if(currentElem!="typeSearch" && $("#typeSearch").val()!="None" && 
+		} else if(currentElem!="typeSearch" && $("#typeSearch").val()!="All" && 
 			$("#typeSearch").val().toLowerCase()!=type){
 			$(this).hide();
 		} else if(currentElem!="damMin" && $("#damMin").val()!="" && parseInt($("#damMin").val())>parseInt(damage)){
