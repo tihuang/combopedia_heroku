@@ -10,6 +10,7 @@ urlpatterns = patterns('',
     # url(r'^$', 'combopedia.views.home', name='home'),
     # url(r'^combopedia/', include('combopedia.foo.urls')),
     url(r'^p4u/$', 'p4u.views.menu', name='menu'),
+    url(r'^p4u/create/$', 'p4u.views.create', name='create'),
 
 #    url(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.STATIC_ROOT}),
     # Uncomment the admin/doc line below to enable admin documentation:
