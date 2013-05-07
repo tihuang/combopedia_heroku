@@ -48,6 +48,11 @@ table{
 	width:100%;
 }
 
+#advsearch{
+	display: none;
+	padding:5px;
+}
+
 #topRow{
 	padding:30px;
 }
