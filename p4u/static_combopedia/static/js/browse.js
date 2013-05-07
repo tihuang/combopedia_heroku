@@ -41,7 +41,7 @@ $(document).ready(function() {
 
 	$("#data").on("click",'.linkToComboPage',function(e){
 		if(e.target.className!="icon-star" && e.target.className!="icon-star-empty" && e.target.className!="fav"){
-			$(location).attr('href',"./fillerComboPage.html");
+			$(location).attr('href',"/p4u/view/1");
 		}
 	});
 
