@@ -14,6 +14,9 @@ $(document).ready(function() {
 
 	});
 
+	$('#expanddiv').click(function(){
+		$('#advsearch').slideToggle('fast');
+	});
 
 	$(".side").click(function() {
 		$("#"+prevHighlight).removeClass('active');
