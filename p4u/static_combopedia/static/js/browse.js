@@ -39,6 +39,14 @@ $(document).ready(function() {
 				}
 			});
 		}
+		$("#"+prevHighlight).removeClass('active');
+		name = $('#charNameSearch').val().split(" ")[0];
+		if(name=="All"){name="allchars";}
+		$("#"+name).addClass('active');
+		prevHighlight = name;
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$('#comboNameSearch').keyup(function (e) {
@@ -52,6 +60,9 @@ $(document).ready(function() {
 				}
 			});
 		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$('#typeSearch').click(function (e) {
@@ -64,6 +75,9 @@ $(document).ready(function() {
 					$(this).hide();
 				}
 			});
+		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}
 	});
 
@@ -80,7 +94,10 @@ $(document).ready(function() {
 			if(!eval(tableNumStars.toString()+$("#fireRatingPars").val()+numStars)){
 				$(this).hide();
 			}
-		});		
+		});	
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}	
 	});
 
 	$("#damMin").keyup(function (e) {
@@ -93,6 +110,9 @@ $(document).ready(function() {
 					$(this).hide();
 				}
 			});
+		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}
 	});
 
@@ -107,6 +127,9 @@ $(document).ready(function() {
 				}
 			});
 		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$("#gainMin").keyup(function (e) {
@@ -119,6 +142,9 @@ $(document).ready(function() {
 					$(this).hide();
 				}
 			});
+		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}
 	});
 
@@ -133,6 +159,9 @@ $(document).ready(function() {
 				}
 			});
 		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$("#drainMin").keyup(function (e) {
@@ -145,6 +174,9 @@ $(document).ready(function() {
 					$(this).hide();
 				}
 			});
+		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}
 	});
 
@@ -159,11 +191,20 @@ $(document).ready(function() {
 				}
 			});
 		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$(".side").click(function() {
+		dict = {'Labrys':'Labrys','Mitsuru':'Mitsuru Kirijo','Aigis':'Aigis',
+		'Naoto':'Naoto Shirogane','Yukiko':'Yukiko Amagi','Yu':'Yu Narukami',
+		'Elizabeth':'Elizabeth','Yosuke':'Yosuke Hanamura','Chie':'Chie Satonaka',
+		'Kanji':'Kanji Tatsumi','Teddie':'Teddie','Akihiko':'Akihiko Sanada',
+		'Shadow':'Shadow Labrys','allchars':'All'}
 		$("#"+prevHighlight).removeClass('active');
 		$("#"+this.id).addClass('active');
+		$('#charNameSearch').val(dict[this.id]);
 		prevHighlight = this.id;
 		ComboData.initTable();
 		ComboData.fillComboData(this.id);
@@ -331,12 +372,13 @@ ComboData.fillComboData = function(charac, search, query) {
 		}
 			
 		var dataRow = $('<tr class="linkToComboPage">');
-
+		var flag = false;
 		for (var j = 0; j < ComboData.attributes.length; j++) {
 			var attribute = ComboData.attributes[j];
 
 			var firstName = combo.character.split(" ")[0];
 			if(charac=="allchars" || charac==firstName || charac==combo["character"]){
+				flag = true;
 				if(attribute=="combo"){
 					dataRow.append(convertToPicture(combo["combo"]));
 				} else if(attribute=="favorite"){
@@ -368,9 +410,15 @@ ComboData.fillComboData = function(charac, search, query) {
 			}
 			
 		}
-		$('#data tbody').append(dataRow);
+		if(flag){
+			$('#data tbody').append(dataRow);
+		}
 		
 		
+	}
+
+	if($('#data tbody').children().length==0){
+		$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 	}
 
 
@@ -422,7 +470,6 @@ var checkOtherFields = function(currentElem){
 			}
 		});	
 	}
-
 	$('#data tbody').children().each(function() {
 		comboName = $(this).children()[1].innerHTML.toLowerCase();
 		type = $(this).children()[3].innerHTML.toLowerCase();
@@ -451,4 +498,5 @@ var checkOtherFields = function(currentElem){
 
 		}
 	});
+
 }
