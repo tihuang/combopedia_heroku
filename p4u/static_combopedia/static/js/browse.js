@@ -39,6 +39,9 @@ $(document).ready(function() {
 				}
 			});
 		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$('#comboNameSearch').keyup(function (e) {
@@ -52,6 +55,9 @@ $(document).ready(function() {
 				}
 			});
 		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$('#typeSearch').click(function (e) {
@@ -64,6 +70,9 @@ $(document).ready(function() {
 					$(this).hide();
 				}
 			});
+		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}
 	});
 
@@ -80,7 +89,10 @@ $(document).ready(function() {
 			if(!eval(tableNumStars.toString()+$("#fireRatingPars").val()+numStars)){
 				$(this).hide();
 			}
-		});		
+		});	
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}	
 	});
 
 	$("#damMin").keyup(function (e) {
@@ -93,6 +105,9 @@ $(document).ready(function() {
 					$(this).hide();
 				}
 			});
+		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}
 	});
 
@@ -107,12 +122,14 @@ $(document).ready(function() {
 				}
 			});
 		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$("#gainMin").keyup(function (e) {
 		checkOtherFields("gainMin");
 		gainmin = $('#gainMin').val();
-		alert(gainmin);
 		if(gainmin!=""){
 			$('#data tbody').children().each(function() {
 				gain = $(this).children()[5].innerHTML;
@@ -120,6 +137,9 @@ $(document).ready(function() {
 					$(this).hide();
 				}
 			});
+		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}
 	});
 
@@ -134,6 +154,9 @@ $(document).ready(function() {
 				}
 			});
 		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$("#drainMin").keyup(function (e) {
@@ -147,6 +170,9 @@ $(document).ready(function() {
 				}
 			});
 		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$("#drainMax").keyup(function (e) {
@@ -159,6 +185,9 @@ $(document).ready(function() {
 					$(this).hide();
 				}
 			});
+		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}
 	});
 
@@ -375,6 +404,10 @@ ComboData.fillComboData = function(charac, search, query) {
 		}
 		
 		
+	}
+
+	if($('#data tbody').children().length==0){
+		$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 	}
 
 
