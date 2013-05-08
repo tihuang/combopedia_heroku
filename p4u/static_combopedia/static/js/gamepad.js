@@ -45,8 +45,7 @@ var Gamepad = function() {
 		resetGamepad();
 	});
 	$('#addMove').click(function() {
-        if (!$('#addMove').hasClass('disabled'))
-          addMove(Gamepad.inputQueue);
+        addMove(Gamepad.inputQueue);
 	});
 	
 	// The joystick controls of the gamepad
@@ -259,8 +258,18 @@ var Gamepad = function() {
 	
 	/* Feedback */
 
-	$('#textMoveInput').on('keyup', function() {
-		parseTextInput();
+    
+	$('#textMoveInput').keydown(function(e) {
+      if (e.which == '13')
+        e.preventDefault();
+    });
+
+	$('#textMoveInput').keyup(function(e) {
+        if (e.which == '13') {
+          addMove();
+        } else {
+          parseTextInput();
+        }
 	});
 	
 	// Code for being able to add single moves
@@ -272,12 +281,6 @@ var Gamepad = function() {
 		padding: 0,
 		margin: 0,
 	
-	});
-	
-	$("#moves").on("click", '.singleMove', function (e){
-		if(e.target.className=="pull-right icon-trash"){
-			$(this).closest('li').remove();
-		} 
 	});
 
 
@@ -312,7 +315,7 @@ var Gamepad = function() {
 		);
 		
 		trash.click(function() {
-			move.remove();
+            $(this).closest('li').remove();
 		});
 		
 		var text = $('<div>').addClass('moveText').text(nums + btns);
@@ -343,9 +346,7 @@ var Gamepad = function() {
                 var move = new Move();
                 $("#moves").append(move);
                 resetGamepad();
-            } else {
-                resetGamepad();
-            }            
+            }           
 		}
 	}
 	
@@ -480,7 +481,9 @@ var Gamepad = function() {
 		});
 		
         var num = Gamepad.inputQueue[joystickQueue.length-1];			
-		if (num!=undefined && num.length > 0 && 0 <= parseInt(num) && parseInt(num) <= 9)
+        if (joystickQueue.length == 0) 
+            Knob.position($('#knob'), 5); 
+        else if (num!=undefined && intRegex.test(num))
 			Knob.position($('#knob'), num);
 		Gamepad.btnSel = btnQueueUnique.join('');
 

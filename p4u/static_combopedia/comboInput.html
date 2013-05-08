@@ -68,7 +68,7 @@
 							<div class="control-group">
 								<label class="control-label">Combo Name</label>
 								<div class="controls">
-									<input type="text" placeholder="Name" name='name' value='Unnamed Combo'>
+									<input type="text" placeholder="Name" name='name' value='Unnamed Combo' id='combo_name'>
 								</div>
 							</div>
 							<div class="control-group">
@@ -94,9 +94,9 @@
 							<div class="control-group">
 								<label class="control-label">Type</label>
 								<div class="controls">
-									<select name='combo_type'>
+									<select name='combo_type' id='combo_type'>
 										<option>Jab</option>
-										<option>Mixup</option>
+										<option>Jump In</option>
 										<option>Crossup</option>
                     <option>Counter</option>
                     <option>Fatal Counter</option>
@@ -107,19 +107,19 @@
 							<div class="control-group">
 								<label class="control-label">Damage</label>
 								<div class="controls">
-									<input type="text" class="input-small" placeholder="Damage" name='damage'>
+									<input type="text" class="input-small" placeholder="Damage" name='damage' id='damage'>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">Meter Gain</label>
 								<div class="controls">
-									<input type="text" class="input-small" placeholder="Meter Gain" name='meter_gain'>
+									<input type="text" class="input-small" placeholder="Meter Gain" name='meter_gain' id='meter_gain'>
 								</div>
 							</div>
 							<div class="control-group">
 								<label class="control-label">Meter Drain</label>
 								<div class="controls">
-									<input type="text" class="input-small" placeholder="Meter Drain" name='meter_drain'>
+									<input type="text" class="input-small" placeholder="Meter Drain" name='meter_drain' id='meter_drain'>
 								</div>
 							</div>
 							<div class="control-group">
@@ -181,11 +181,22 @@
 					
 					<!-- Preview/Confirm Submission -->
 					<div class="item" id="confirmation">
-						<h2>Confirmation</h2>
-						<h2>Confirmation</h2>
-						<h2>Confirmation</h2>
-						<h2>Confirmation</h2>
-						<h2>Confirmation</h2>
+                        <h2 id='confirmation_name'></h2>
+                        <table class='table table-striped table-bordered table-hover' id='confirmation_metadata'>
+                        </table>
+
+                        <h3>Combo Input</h3>
+                        <p>Graphical Input:</p>
+                        <p id='graphicalInputConf'>
+                        <img src='/static/img/moves/none.png' class='imgMoves' />
+                        </p>
+
+                        <p>Text Input:</p>
+                        <p id='textInputConf'>
+                        </p>
+
+
+
             <button id='submitCombo' class = "btn btn-large" style="position:absolute;bottom:10px;right:10px;overflow:hidden;">Submit Combo</button>
 						<!-- <div class="loading"><i class="icon-spinning icon-spin"></i></div> -->
 					</div>

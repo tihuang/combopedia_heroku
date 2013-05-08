@@ -2,9 +2,13 @@
 }
 
 #brand {
- padding: 0px;
-  margin: 10px;
+ padding: 10px;
   padding-left: 10px;
+  margin-left: 20px;
+}
+
+#brand:hover {
+    border: 1px solid white;
 }
 
 .next-page > i{
