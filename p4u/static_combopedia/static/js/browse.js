@@ -233,7 +233,7 @@ $(document).ready(function() {
 		ComboData.fillComboData(this.id);
 	});
 
-	$("#data").on("click", '.fav', function ()  {
+	/*$("#data").on("click", '.fav', function ()  {
 		//shoud be some stuff with the database...this isn't real code for the final thing
 		for (var i = 0; i < ComboData.comboData.length; i++) {
 			var combo = ComboData.comboData[i];
@@ -247,7 +247,7 @@ $(document).ready(function() {
 		}
 		ComboData.initTable();
 		ComboData.fillComboData(prevHighlight);
-	});
+	});*/
 
     $.ajax({
       method: 'GET',
@@ -273,9 +273,11 @@ ComboData.initTable = function() {
 
 	var dataRow = $('<tr>');
 	for (var j = 0; j < ComboData.attributes.length; j++) {
-		var attribute = ComboData.attributes[j];
-		var capitalized = attribute.charAt(0).toUpperCase() + attribute.slice(1);
-		dataRow.append($('<th>').text(capitalized));
+		if(ComboData.attributes[j]!="favorite"){
+			var attribute = ComboData.attributes[j];
+			var capitalized = attribute.charAt(0).toUpperCase() + attribute.slice(1);
+			dataRow.append($('<th>').text(capitalized));
+		}
 	}
 	$('#data thead').append(dataRow);
 };
@@ -316,11 +318,11 @@ ComboData.fillComboData = function(charac, search, query) {
 				if(attribute=="combo"){
 					dataRow.append(convertToPicture(combo["combo"]));
 				} else if(attribute=="favorite"){
-					if(combo[attribute]){
+					/*if(combo[attribute]){
 						dataRow.append($('<td class="fav"><i class="icon-heart"></i></td>'));
 					} else{
 						dataRow.append($('<td class="fav"><i class="icon-heart-empty"></i></td>'));
-					}
+					}*/
 				} else if(attribute=="difficulty"){
                     var elt = $('<td>');
                     var span = $('<span class="difficulty">').text(combo['difficulty']);
