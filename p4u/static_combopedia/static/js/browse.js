@@ -249,7 +249,6 @@ $(document).ready(function() {
 		ComboData.fillComboData(prevHighlight);
 	});
 
-
     $.ajax({
       method: 'GET',
       url: '/p4u/getallcombos',
@@ -267,6 +266,7 @@ var ComboData = function() {
 };
 
 ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGain', 'meterDrain', 'difficulty', 'favorite'];
+
 ComboData.initTable = function() {
      
 	$('#data').html("<thead>");
