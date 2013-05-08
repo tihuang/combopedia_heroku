@@ -70,14 +70,18 @@
         <p>Graphical Input:</p>
         <p id='graphicalInput'>
         {% for move in combo_input %}
+            {% if move != '' %}
         <img src='/static/img/moves/{{move}}.png' class='imgMoves' />
+            {% endif %}
         {% endfor %}
         </p>
 
         <p>Text Input:</p>
         <p id='textInput'>
         {% for move in combo_input %}
-          {{move}}
+            {% if move != '' %}
+              {{move}}
+            {% endif %}
         {% endfor %}
         </p>
 

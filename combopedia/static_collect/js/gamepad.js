@@ -273,12 +273,6 @@ var Gamepad = function() {
 		margin: 0,
 	
 	});
-	
-	$("#moves").on("click", '.singleMove', function (e){
-		if(e.target.className=="pull-right icon-trash"){
-			$(this).closest('li').remove();
-		} 
-	});
 
 
 	//TODO: clear input if text area is none
@@ -312,7 +306,7 @@ var Gamepad = function() {
 		);
 		
 		trash.click(function() {
-			move.remove();
+            $(this).closest('li').remove();
 		});
 		
 		var text = $('<div>').addClass('moveText').text(nums + btns);

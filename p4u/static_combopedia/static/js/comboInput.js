@@ -36,20 +36,15 @@ $(document).ready(function() {
 		if ($('#inputCarouselInner').children(':first').hasClass('active')) {
 			$('.carousel-control.left').hide();
 			$('.carousel-control.right').show();
-			//$("#step1complete").html("INCOMPLETE").css({'color':'red'});
-			//$("#step2complete").html("Completed!").css({'color':'green'});
 			$('#comboDataProgress').addClass('active');
 		} else if ($('#inputCarouselInner').children(':last').hasClass('active')) {
 			$('.carousel-control.left').show();
 			$('.carousel-control.right').hide();
-			//$("#step1complete").html("Completed!").css({'color':'green'});
-			//$("#step2complete").html("Completed!").css({'color':'green'});
 			$('#confirmationProgress').addClass('active');
+            updateConfirmation();
 		} else {
 			$('.carousel-control.left').show();
 			$('.carousel-control.right').show();
-			//$("#step1complete").html("Completed!").css({'color':'green'});
-			//$("#step2complete").html("INCOMPLETE").css({'color':'red'});
 			$('#moveInputProgress').addClass('active');
 		}
 	});
@@ -100,51 +95,13 @@ $(document).ready(function() {
 	
 		
 	$('.loading').remove();
-	
+
+
 
     $('#submitCombo').click(function() {
-		var intRegex = /[1-9]/;
-	    var letterRegex = /[A-D]/;
-        var combo_input = [];
-
-        $('#moves .moveText').each(function(idx, value) {
-            var joystick = '';
-            var buttons = '';
-
-            var txt = $(value).text().trim().split(''); 
-            var letterIdx = 0;
-            // get numbers
-            $.each(txt, function(i, v) {
-              if (intRegex.test(v)) {
-                joystick += v.toString();
-              } else {
-                letterIdx = i;
-                return false //break;
-              }
-            });
-
-            // get letters
-            $.each(txt.splice(letterIdx), function(i, v) {
-               if (letterRegex.test(v)) {
-                buttons += v.toString();
-              } else {
-                return false //break;
-              }
-           
-            });
-            combo_input.push(joystick);
-            combo_input.push(buttons);
-        });
-
-        var data = {
-          'combo_input': JSON.stringify(combo_input),
-        }
-
-        $('#metaDataForm :input').each(function(i,v) {
-          data[$(v).attr('name')] = $(v).val();
-        });
-
-        data['difficulty'] = $('#fireRating .icon-star').length;
+       var data = getData();
+       
+       $('#confirmation_name').text(data.name);
        $.ajax({
           method: 'POST',
           url: '/p4u/submitCombo/',
@@ -164,6 +121,119 @@ $(document).ready(function() {
         });
     });    
 });
+
+var getData = function() {
+
+        var combo_input = getComboInput();
+
+        var data = {
+          'combo_input': JSON.stringify(combo_input),
+        }
+
+        $('#metaDataForm :input').each(function(i,v) {
+          data[$(v).attr('name')] = $(v).val();
+        });
+
+        data['difficulty'] = $('#fireRating .icon-star').length;
+        return data;
+};
+
+var getComboInput = function() {
+
+    var intRegex = /[1-9]/;
+    var letterRegex = /[A-D]/;
+    var combo_input = [];
+
+    $('#moves .moveText').each(function(idx, value) {
+        var joystick = '';
+        var buttons = '';
+
+        var txt = $(value).text().trim().split(''); 
+        var letterIdx = 0;
+        // get numbers
+        $.each(txt, function(i, v) {
+          if (intRegex.test(v)) {
+            joystick += v.toString();
+          } else {
+            letterIdx = i;
+            return false //break;
+          }
+        });
+
+        // get letters
+        $.each(txt.splice(letterIdx), function(i, v) {
+           if (letterRegex.test(v)) {
+            buttons += v.toString();
+          } else {
+            return false //break;
+          }
+       
+        });
+        combo_input.push(joystick);
+        combo_input.push(buttons);
+    });
+    return combo_input;
+};
+
+var updateConfirmation = function() {
+    $('#confirmation_metadata').empty();
+    $('#graphicalInputConf').empty();
+    $('#textInputConf').empty();
+
+    var data = getData();
+    $('#confirmation_name').text(data.name);
+    for (var fieldname in data) {
+        if (fieldname == 'name' || fieldname == 'combo_input') 
+            continue;
+
+        else if (fieldname == 'difficulty') {
+            var tr = $('<tr>');
+            tr.append($('<td>').html('<b>Difficulty</b>'));
+            var td = $('<td>');
+            for (var i = 0; i < 5; i++) {
+                if (i < data.difficulty) {
+                    td.append($('<i class="icon-star"></i>')); 
+                } else {
+                    td.append($('<i class="icon-star-empty"></i>'));
+                }
+            }
+            tr.append(td);
+            $('#confirmation_metadata').append(tr);
+            continue;
+        }
+        var arr = fieldname.split('_');
+        var fieldname_str = '';
+        $.each(arr, function(i,v) {
+            fieldname_str += v.charAt(0).toUpperCase() + v.slice(1) + ' ';
+        });
+        var tr = $('<tr>');
+        var fieldname_td = $('<td>').html('<b>' + fieldname_str + '</b>');
+        var confirmation_val = data[fieldname];
+        if (confirmation_val == undefined || confirmation_val == '')
+            confirmation_val = '<span class="empty">Empty</span>'
+        var value_td = $('<td>').html(confirmation_val);
+        tr.append(fieldname_td);
+        tr.append(value_td);
+        $('#confirmation_metadata').append(tr);
+    };
+
+    var combo_input = getComboInput();
+    // update combo input
+    
+    if (combo_input.length == 0) {
+        $('#graphicalInputConf').html('<span class="empty">No Combo Input</span>');
+        $('#textInputConf').html('<span class="empty">No Combo Input</span>');
+    } else {
+        $.each(combo_input, function(i, v) {
+            if (v == '') return true;
+            var url = '/static/img/moves/' + v + '.png';
+            var img = $('<img>').addClass('imgMoves').attr('src', url);
+            $('#graphicalInputConf').append(img);
+            $('#textInputConf').append(v + ' ');
+        });
+    }
+ 
+};
 
 // Django magic
 $(document).ajaxSend(function(event, xhr, settings) {
