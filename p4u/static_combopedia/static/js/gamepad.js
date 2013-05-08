@@ -318,14 +318,14 @@ var Gamepad = function() {
 		var img = $('<div>').addClass('moveImg');
 		
 		if (nums.length > 0)
-			img.append($('<img>').attr('src', '/static/img/moves/' + nums.trim() + '.png'));
+			img.append($('<img class="imgMoves">').attr('src', '/static/img/moves/' + nums.trim() + '.png'));
 		else
-			img.append($('<img>').attr('src', '/static/img/moves/5.png'));
+			img.append($('<img class="imgMoves">').attr('src', '/static/img/moves/5.png'));
 			
 		if (btns.length > 0)		
-		    img.append($('<img>').attr('src', '/static/img/moves/' + btns.trim() + '.png'));
+		    img.append($('<img class="imgMoves">').attr('src', '/static/img/moves/' + btns.trim() + '.png'));
 		else
-		    img.append($('<img>').attr('src', '/static/img/moves/none.png'));		
+		    img.append($('<img class="imgMoves">').attr('src', '/static/img/moves/none.png'));		
 		
 		move.append(text);
 		move.append(img);
