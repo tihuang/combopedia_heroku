@@ -4,7 +4,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render_to_response, get_object_or_404, redirect
 import json
 import os
-from models import Combo, User, ComboType, Character
+from models import Combo, User, ComboType, Character, Favorites
 from django.db import IntegrityError
 
 # Create your views here.
@@ -125,7 +125,9 @@ def logout_user(request):
     return redirect('/p4u/')
 
 def get_all_combos(request):
+    jsondata = {}
     comboData = []
+    favorites = []
     for c in Combo.objects.all():
         data = {}
         data['id'] = c.id
@@ -138,15 +140,23 @@ def get_all_combos(request):
         data['meterDrain'] = c.meter_drain
         data['difficulty'] = c.difficulty
         data['creator'] = c.creator.username
-        data['favorite'] = False
+
+        if request.user.is_authenticated() and len(Favorites.objects.filter(user=request.user, combo = c)) != 0:
+            data['favorite'] = True
+        else:
+            data['favorite'] = False
 
         comboData.append(data)
-
-    return HttpResponse(json.dumps(comboData))
+    for f in Favorites.objects.filter(user = request.user):
+        favorites.append(f.combo.id)
+    jsondata['combos'] = comboData
+    return HttpResponse(json.dumps(jsondata))
 
 def get_my_combos(request):
     if request.user.is_authenticated():
+        jsondata = {}
         comboData = []
+        favorites = []
         for c in Combo.objects.filter(creator = request.user):
             data = {}
             data['id'] = c.id
@@ -159,13 +169,34 @@ def get_my_combos(request):
             data['meterDrain'] = c.meter_drain
             data['difficulty'] = c.difficulty
             data['creator'] = c.creator.username
-            data['favorite'] = False
+
+            
+            if len(Favorites.objects.filter(user=request.user, combo = c)) != 0:
+                data['favorite'] = True
+            else:
+                data['favorite'] = False
 
             comboData.append(data)
+        for f in Favorites.objects.filter(user = request.user):
+            favorites.append(f.combo.id)
 
-        return HttpResponse(json.dumps(comboData))
+        jsondata['combos'] = comboData
+        print jsondata
+        return HttpResponse(json.dumps(jsondata))
 
 
+def add_fav(request):
+    if request.user.is_authenticated() and request.method=='POST':
+        combo = Combo.objects.get(id=request.POST['combo_id'])
+        existing = Favorites.objects.filter(user = request.user, combo=combo)
+        if (len(existing) != 0):
+            #already exists, remove favorite
+            existing.delete()
+            return HttpResponse('-1')
+        else:
+            #does not exist, add favorite
+            Favorites(user=request.user, combo=combo).save()
+            return HttpResponse('1')
 
 def view_combo(request, combo_id):
     try:

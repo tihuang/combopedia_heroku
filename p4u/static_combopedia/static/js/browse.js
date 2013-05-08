@@ -249,12 +249,13 @@ $(document).ready(function() {
 		ComboData.fillComboData(prevHighlight);
 	});*/
 
+
     $.ajax({
       method: 'GET',
       url: '/p4u/getallcombos',
       dataType: 'json',
       success: function(data) {
-        ComboData.comboData = data;
+        ComboData.comboData = data.combos;
         ComboData.initTable();
         ComboData.fillComboData();
       },
@@ -273,11 +274,9 @@ ComboData.initTable = function() {
 
 	var dataRow = $('<tr>');
 	for (var j = 0; j < ComboData.attributes.length; j++) {
-		if(ComboData.attributes[j]!="favorite"){
-			var attribute = ComboData.attributes[j];
-			var capitalized = attribute.charAt(0).toUpperCase() + attribute.slice(1);
-			dataRow.append($('<th>').text(capitalized));
-		}
+        var attribute = ComboData.attributes[j];
+        var capitalized = attribute.charAt(0).toUpperCase() + attribute.slice(1);
+        dataRow.append($('<th>').text(capitalized));
 	}
 	$('#data thead').append(dataRow);
 };
@@ -308,7 +307,6 @@ ComboData.fillComboData = function(charac, search, query) {
 		}
 			
 		var dataRow = $('<tr class="linkToComboPage">');
-		var flag = false;
 		for (var j = 0; j < ComboData.attributes.length; j++) {
 			var attribute = ComboData.attributes[j];
 
@@ -318,11 +316,11 @@ ComboData.fillComboData = function(charac, search, query) {
 				if(attribute=="combo"){
 					dataRow.append(convertToPicture(combo["combo"]));
 				} else if(attribute=="favorite"){
-					/*if(combo[attribute]){
+					if(combo[attribute]){
 						dataRow.append($('<td class="fav"><i class="icon-heart"></i></td>'));
 					} else{
 						dataRow.append($('<td class="fav"><i class="icon-heart-empty"></i></td>'));
-					}*/
+					}
 				} else if(attribute=="difficulty"){
                     var elt = $('<td>');
                     var span = $('<span class="difficulty">').text(combo['difficulty']);
@@ -357,12 +355,9 @@ ComboData.fillComboData = function(charac, search, query) {
 			}
 			
 		}
-		if(flag){
-			$('#data tbody').append(dataRow);
-		}
-		
-		
-	}
+
+        $('#data tbody').append(dataRow);
+	   	}
 
 	if($('#data tbody').children().length==0){
 		$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
@@ -371,7 +366,7 @@ ComboData.fillComboData = function(charac, search, query) {
 
 	$('#data').tablesorter({ headers: { 2:{sorter:false} } });
     
-    // add click handler
+    // add click handlers
 	$("tr.linkToComboPage").each(function(i, v) {
 
       $(v).click(function(e){
@@ -379,7 +374,32 @@ ComboData.fillComboData = function(charac, search, query) {
 		$(location).attr('href',"/p4u/view/" + combo_id);
 		
       });
+    }); 
+
+    $('.fav').each(function(i, v) {
+        $(v).click(function(e) {
+            e.stopPropagation();
+            var combo_id = $(this).parent().find('.combo_id').text();
+            var td = $(this);
+            $.ajax({
+                method: 'POST',
+                url: '/p4u/addFav/',
+                data: {'combo_id': combo_id},
+                success: function(data) {
+                    console.log(data);
+                    if (data == -1) {
+                        console.log(this);
+                        td.html('<i class="icon-heart-empty"></i>');
+                    }
+                    else{
+                        console.log('full');
+                        td.html('<i class="icon-heart"></i>');
+                    }
+                }
+            });
+        });
     });
+
 };
 	
 	

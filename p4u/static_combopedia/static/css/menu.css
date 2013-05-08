@@ -196,3 +196,12 @@ table{
 .difficulty, .combo_id {
   display: none;
 }
+
+#data tbody tr .fav:hover {
+    background-color: #FFEBF3;
+}
+
+.icon-heart {
+    color: red;
+}
+

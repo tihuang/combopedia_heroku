@@ -12,6 +12,9 @@ $(document).ready(function() {
 				ComboData.fillComboData("allchars",true,query);
   			}
     		document.getElementById('searchBar').value="";
+			if($('tr:visible').length==1){
+				$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+			}
   		}
 
 	});
@@ -98,6 +101,26 @@ $(document).ready(function() {
 		if($('tr:visible').length==1){
 			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}	
+	});
+
+	$("#fireRatingPars").click(function(e){
+		checkOtherFields("fireRating");
+		if(numStars!=0){
+			$('#data tbody').children().each(function() {
+				var tableNumStars = 0;
+				$(this).children().children().each(function(){
+					if($(this).attr("class")=="icon-star"){
+						tableNumStars++;
+					}
+				});
+				if(!eval(tableNumStars.toString()+$("#fireRatingPars").val()+numStars)){
+					$(this).hide();
+				}
+			});	
+		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$("#damMin").keyup(function (e) {
@@ -210,34 +233,15 @@ $(document).ready(function() {
 		ComboData.fillComboData(this.id);
 	});
 
-	$("#data").on("click", '.fav', function ()  {
-		//shoud be some stuff with the database...this isn't real code for the final thing
-		for (var i = 0; i < ComboData.comboData.length; i++) {
-			var combo = ComboData.comboData[i];
-			if(combo['name']==$(this).closest('tr').find('td').first().html()){
-				if(combo['favorite']){
-					combo['favorite']=false;
-				} else{
-					combo['favorite']=true;
-				}
-			}
-		}
-		ComboData.initTable();
-		ComboData.fillComboData(prevHighlight);
-	});
-
 
     $.ajax({
       method: 'GET',
       url: '/p4u/getmycombos',
       dataType: 'json',
       success: function(data) {
-        ComboData.comboData = data;
+        ComboData.comboData = data.combos;
         ComboData.initTable();
-        if (data.length > 0)
-          ComboData.fillComboData();
-        else
-          $('#mycombostatus').text('You have no combos. Start adding combos!');
+        ComboData.fillComboData();
       },
     });
 });
@@ -247,15 +251,16 @@ var ComboData = function() {
 };
 
 ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGain', 'meterDrain', 'difficulty', 'favorite'];
+
 ComboData.initTable = function() {
      
 	$('#data').html("<thead>");
 
 	var dataRow = $('<tr>');
 	for (var j = 0; j < ComboData.attributes.length; j++) {
-		var attribute = ComboData.attributes[j];
-		var capitalized = attribute.charAt(0).toUpperCase() + attribute.slice(1);
-		dataRow.append($('<th>').text(capitalized));
+        var attribute = ComboData.attributes[j];
+        var capitalized = attribute.charAt(0).toUpperCase() + attribute.slice(1);
+        dataRow.append($('<th>').text(capitalized));
 	}
 	$('#data thead').append(dataRow);
 };
@@ -286,7 +291,6 @@ ComboData.fillComboData = function(charac, search, query) {
 		}
 			
 		var dataRow = $('<tr class="linkToComboPage">');
-		var flag = false;
 		for (var j = 0; j < ComboData.attributes.length; j++) {
 			var attribute = ComboData.attributes[j];
 
@@ -335,12 +339,9 @@ ComboData.fillComboData = function(charac, search, query) {
 			}
 			
 		}
-		if(flag){
-			$('#data tbody').append(dataRow);
-		}
-		
-		
-	}
+
+        $('#data tbody').append(dataRow);
+	   	}
 
 	if($('#data tbody').children().length==0){
 		$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
@@ -349,15 +350,40 @@ ComboData.fillComboData = function(charac, search, query) {
 
 	$('#data').tablesorter({ headers: { 2:{sorter:false} } });
     
-    // add click handler
-	$("#data tr").each(function(i, v) {
-      console.log(v);
+    // add click handlers
+	$("tr.linkToComboPage").each(function(i, v) {
+
       $(v).click(function(e){
         var combo_id = $(this).find('.combo_id').text();
 		$(location).attr('href',"/p4u/view/" + combo_id);
 		
       });
+    }); 
+
+    $('.fav').each(function(i, v) {
+        $(v).click(function(e) {
+            e.stopPropagation();
+            var combo_id = $(this).parent().find('.combo_id').text();
+            var td = $(this);
+            $.ajax({
+                method: 'POST',
+                url: '/p4u/addFav/',
+                data: {'combo_id': combo_id},
+                success: function(data) {
+                    console.log(data);
+                    if (data == -1) {
+                        console.log(this);
+                        td.html('<i class="icon-heart-empty"></i>');
+                    }
+                    else{
+                        console.log('full');
+                        td.html('<i class="icon-heart"></i>');
+                    }
+                }
+            });
+        });
     });
+
 };
 	
 	
