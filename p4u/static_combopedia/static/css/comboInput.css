@@ -156,6 +156,8 @@
 	resize: none;
 	width: 100%;
 	margin-top: 10px;
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 #container-gamepad {
@@ -212,6 +214,8 @@
 #graphicalInputConf, #textInputConf {
   border: 1px solid black;
   padding: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
 
 }
 
