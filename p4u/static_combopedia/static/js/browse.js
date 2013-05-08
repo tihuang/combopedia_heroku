@@ -212,8 +212,8 @@ $(document).ready(function() {
 
 	$("#data").on("click", '.fav', function ()  {
 		//shoud be some stuff with the database...this isn't real code for the final thing
-		for (var i = 0; i < comboData.length; i++) {
-			var combo = comboData[i];
+		for (var i = 0; i < ComboData.comboData.length; i++) {
+			var combo = ComboData.comboData[i];
 			if(combo['name']==$(this).closest('tr').find('td').first().html()){
 				if(combo['favorite']){
 					combo['favorite']=false;
@@ -232,16 +232,24 @@ $(document).ready(function() {
 		}
 	});
 
-	ComboData.initTable();
-	ComboData.fillComboData();
-
+    $.ajax({
+      method: 'GET',
+      url: '/p4u/getallcombos',
+      dataType: 'json',
+      success: function(data) {
+        ComboData.comboData = data;
+        ComboData.initTable();
+        ComboData.fillComboData();
+      },
+    });
 });
 
 
-var ComboData = function() {};
+var ComboData = function() {
+};
 
 ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGain', 'meterDrain', 'difficulty', 'favorite'];
-
+/*
 	// hard coded json data that would otherwise come from database
 	var comboData = [
 		{
@@ -333,8 +341,10 @@ ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGa
 			favorite: false,		
 		},
 	];
+*/
 
 ComboData.initTable = function() {
+     
 	$('#data').html("<thead>");
 
 	var dataRow = $('<tr>');
@@ -354,14 +364,14 @@ ComboData.fillComboData = function(charac, search, query) {
 
 	var combos = [];
 	if (search){
-		for (var i = 0; i< comboData.length; i++) {
+		for (var i = 0; i< ComboData.comboData.length; i++) {
 			query.toLowerCase();
-			if(comboData[i]["character"].toLowerCase().indexOf(query) !== -1 || comboData[i]["name"].toLowerCase().indexOf(query) !== -1){
-			   combos.push(comboData[i]);
+			if(ComboData.comboData[i]["character"].toLowerCase().indexOf(query) !== -1 || ComboData.comboData[i]["name"].toLowerCase().indexOf(query) !== -1){
+			   combos.push(ComboData.comboData[i]);
 			}
 		}
 	} else {
-		combos = comboData;
+		combos = ComboData.comboData;
 	}
 
 	for (var i = 0; i < combos.length; i++) {
@@ -388,12 +398,26 @@ ComboData.fillComboData = function(charac, search, query) {
 						dataRow.append($('<td class="fav"><i class="icon-heart-empty"></i></td>'));
 					}
 				} else if(attribute=="difficulty"){
+                    var elt = $('<td>');
+                    var span = $('<span class="difficulty">').text(combo['difficulty']);
+                    elt.append(span);
+                    for (var k = 0; k < 5; k++) {
+                      if (k < combo['difficulty']) {
+                        elt.append($('<i class="icon-star">'));
+                      } else {
+                        elt.append($('<i class="icon-star-empty">'));
+                      }
+                    }
+                    /*
 					elem = "<td>";
+                    console.log(attribute);
+                    console.log(combo[attribute]);
 					for(var k=0; k<combo[attribute]; k++){
 						elem = elem + "<i class='icon-star'></i>";
 					}
 					elem = elem + "</td>";
-					dataRow.append($(elem));
+                    */
+					dataRow.append(elt);
 				} else if(attribute == "character") {
 					elt = $('<td>');
 					var portrait = $('<img>').addClass('char-port img-rounded');
@@ -435,12 +459,12 @@ ComboData.fillComboData = function(charac, search, query) {
 
 var dataRow = function() {
 	this.name = undefined;
-	this.
-
 	return
 }
 
-var convertToPicture = function(listOfMoves){
+var convertToPicture = function(listOfMovesStr){
+  
+    listOfMoves = $.parseJSON(listOfMovesStr);
 	imgMoves = $("<td class='comboCol'>");
 	for (var i = 0; i < listOfMoves.length; i++) {
 		imgMoves.append($("<img class='imgMoves' src='/static/img/moves/"+listOfMoves[i]+".png' />"));

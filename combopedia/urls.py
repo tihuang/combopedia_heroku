@@ -12,6 +12,7 @@ urlpatterns = patterns('',
     url(r'^p4u/$', 'p4u.views.menu', name='menu'),
     url(r'^p4u/create/$', 'p4u.views.create', name='create'),
     url(r'^p4u/view/(?P<combo_id>\d+)/$', 'p4u.views.view', name='view'),
+    url(r'^p4u/getallcombos/$', 'p4u.views.get_all_combos', name='getallcombos'),
 
     url(r'^login/', 'p4u.views.login_user',name='login'),
     url(r'^logout/', 'p4u.views.logout_user',name='logout'),

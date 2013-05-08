@@ -119,3 +119,23 @@ def submit_combo(request):
 def logout_user(request):
     logout(request)
     return redirect('/p4u/')
+
+def get_all_combos(request):
+    comboData = []
+    for c in Combo.objects.all():
+        data = {}
+        data['character'] = str(c.character)
+        data['name'] = c.name
+        data['combo'] = c.combo_input
+        data['type'] = str(c.combo_type)
+        data['damage'] = c.damage
+        data['meterGain'] = c.meter_gain
+        data['meterDrain'] = c.meter_drain
+        data['difficulty'] = c.difficulty
+        data['creator'] = c.creator.username
+        data['favorite'] = False
+
+        comboData.append(data)
+
+    return HttpResponse(json.dumps(comboData))
+
