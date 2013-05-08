@@ -1,0 +1,29 @@
+#header{
+	text-align: center;
+	font-size: 3em;
+}
+
+#viewCombo_comboname{
+	border-bottom: 5px solid black;
+}
+
+#dividingRow{
+	height: 20px;
+}
+
+#infoContainer{
+	border: 1px solid black;
+	height: 700px;
+	padding: 30px;
+	background-color: #222;
+}
+
+#innerInfoContainer{
+	background-color: #fff;
+	height: 100%;
+}
+
+.comboInfo{
+	text-align: center;
+	padding: 10px;
+}
