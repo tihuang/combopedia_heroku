@@ -378,7 +378,12 @@ var convertToPicture = function(listOfMovesStr){
         if (listOfMoves[i] != "")
           imgMoves.append($("<img class='imgMoves' src='/static/img/moves/"+listOfMoves[i]+".png' />"));
 	}
-	imgMoves.append($("<p></p><span>"+listOfMoves+"</span>"));
+    var p = '';
+    $.each(listOfMoves, function(i, v) {
+      p += v + ' ';
+    });
+	imgMoves.append($("<p>"+p+"</p>"));
+
 	return imgMoves;
 }
 

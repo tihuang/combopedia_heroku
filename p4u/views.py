@@ -94,7 +94,6 @@ def submit_combo(request):
             creator = request.user            
 
             try:
-                print request.POST['combo_input']
                 combo_input = json.loads(request.POST['combo_input'])
                 if len(combo_input) == 0: raise ValueError
                 combo_input_str = json.dumps(combo_input)
@@ -140,3 +139,19 @@ def get_all_combos(request):
 
     return HttpResponse(json.dumps(comboData))
 
+
+def view_combo(request, combo_id):
+    try:
+        combo = Combo.objects.get(id=combo_id)
+        fields = Combo._meta.fields 
+        combodata = [(' '.join([f.capitalize() for f in field.name.split('_')]), getattr(combo, field.name)) for field in combo._meta.fields]
+        difficulty = ['-']*5
+        for i in range(combo.difficulty):
+            difficulty[i] = '*'
+        combo_input = json.loads(combo.combo_input)
+        
+        return render_to_response('viewCombo.html',
+                {'combo': combo, 'combo_data': combodata, 'combo_input': combo_input, 'difficulty': difficulty},
+                                  context_instance=RequestContext(request))
+    except Exception:
+        return render_to_response('viewCombo.html')
