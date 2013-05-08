@@ -183,6 +183,10 @@
 	border: 2px solid red;
 }
 
+.del-move {
+    z-index: 5;
+}
+
 .moveText {
 	float: left;
 	border: 1px solid black;

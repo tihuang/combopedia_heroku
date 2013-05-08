@@ -203,3 +203,22 @@
 	max-height: 375px;
 	overflow-y: scroll;
 }
+
+.empty {
+    color: red;
+    font-weight: bold;
+}
+
+#graphicalInputConf, #textInputConf {
+  border: 1px solid black;
+  padding: 5px;
+
+}
+
+#graphicalInputConf {
+    background-color: yellow;
+}
+
+#confirmation{
+padding: 20px;
+}

@@ -12,6 +12,9 @@ $(document).ready(function() {
 				ComboData.fillComboData("allchars",true,query);
   			}
     		document.getElementById('searchBar').value="";
+			if($('tr:visible').length==1){
+				$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+			}
   		}
 
 	});
@@ -98,6 +101,26 @@ $(document).ready(function() {
 		if($('tr:visible').length==1){
 			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
 		}	
+	});
+
+	$("#fireRatingPars").click(function(e){
+		checkOtherFields("fireRating");
+		if(numStars!=0){
+			$('#data tbody').children().each(function() {
+				var tableNumStars = 0;
+				$(this).children().children().each(function(){
+					if($(this).attr("class")=="icon-star"){
+						tableNumStars++;
+					}
+				});
+				if(!eval(tableNumStars.toString()+$("#fireRatingPars").val()+numStars)){
+					$(this).hide();
+				}
+			});	
+		}
+		if($('tr:visible').length==1){
+			$("#data tbody").append($("<tr><td colspan='9' style='text-align:center;'>No combos match your search</td></tr>"));
+		}
 	});
 
 	$("#damMin").keyup(function (e) {
@@ -226,7 +249,6 @@ $(document).ready(function() {
 		ComboData.fillComboData(prevHighlight);
 	});
 
-
     $.ajax({
       method: 'GET',
       url: '/p4u/getallcombos',
@@ -244,6 +266,7 @@ var ComboData = function() {
 };
 
 ComboData.attributes = ['character', 'name', 'combo', 'type', 'damage', 'meterGain', 'meterDrain', 'difficulty', 'favorite'];
+
 ComboData.initTable = function() {
      
 	$('#data').html("<thead>");

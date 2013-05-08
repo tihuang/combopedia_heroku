@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/home/tihuang/Documents/combopedia_heroku/venv/bin/python
 import os
 import sys
 
