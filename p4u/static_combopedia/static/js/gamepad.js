@@ -45,7 +45,8 @@ var Gamepad = function() {
 		resetGamepad();
 	});
 	$('#addMove').click(function() {
-		addMove(Gamepad.inputQueue);
+        if (!$('#addMove').hasClass('disabled'))
+          addMove(Gamepad.inputQueue);
 	});
 	
 	// The joystick controls of the gamepad
@@ -318,7 +319,10 @@ var Gamepad = function() {
 		var img = $('<div>').addClass('moveImg');
 		
 		if (nums.length > 0)
+          if ($.inArray(nums, VALID_JOYSTICK) > 0)
 			img.append($('<img class="imgMoves">').attr('src', '/static/img/moves/' + nums.trim() + '.png'));
+          else
+            img.append('<i class="icon-ban-circle imgMoves"></i>')
 		else
 			img.append($('<img class="imgMoves">').attr('src', '/static/img/moves/5.png'));
 			

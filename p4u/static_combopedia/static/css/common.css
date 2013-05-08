@@ -78,3 +78,8 @@ body {
   width: 50%;
   float: right;
 }
+
+.icon-ban-circle.imgMoves {
+  color: red;
+  border-color: red;
+}
