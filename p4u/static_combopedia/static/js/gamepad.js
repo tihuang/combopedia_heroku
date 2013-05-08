@@ -45,8 +45,7 @@ var Gamepad = function() {
 		resetGamepad();
 	});
 	$('#addMove').click(function() {
-        if (!$('#addMove').hasClass('disabled'))
-          addMove(Gamepad.inputQueue);
+        addMove(Gamepad.inputQueue);
 	});
 	
 	// The joystick controls of the gamepad
@@ -259,8 +258,18 @@ var Gamepad = function() {
 	
 	/* Feedback */
 
-	$('#textMoveInput').on('keyup', function() {
-		parseTextInput();
+    
+	$('#textMoveInput').keydown(function(e) {
+      if (e.which == '13')
+        e.preventDefault();
+    });
+
+	$('#textMoveInput').keyup(function(e) {
+        if (e.which == '13') {
+          addMove();
+        } else {
+          parseTextInput();
+        }
 	});
 	
 	// Code for being able to add single moves
@@ -343,9 +352,7 @@ var Gamepad = function() {
                 var move = new Move();
                 $("#moves").append(move);
                 resetGamepad();
-            } else {
-                resetGamepad();
-            }            
+            }           
 		}
 	}
 	
