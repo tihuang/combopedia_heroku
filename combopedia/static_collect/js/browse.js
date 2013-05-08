@@ -375,7 +375,8 @@ var convertToPicture = function(listOfMovesStr){
     listOfMoves = $.parseJSON(listOfMovesStr);
 	imgMoves = $("<td class='comboCol'>");
 	for (var i = 0; i < listOfMoves.length; i++) {
-		imgMoves.append($("<img class='imgMoves' src='/static/img/moves/"+listOfMoves[i]+".png' />"));
+        if (listOfMoves[i] != "")
+          imgMoves.append($("<img class='imgMoves' src='/static/img/moves/"+listOfMoves[i]+".png' />"));
 	}
 	imgMoves.append($("<p></p><span>"+listOfMoves+"</span>"));
 	return imgMoves;
