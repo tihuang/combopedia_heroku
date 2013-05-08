@@ -1,3 +1,4 @@
+
 var numStars = 0;
 
 $(document).ready(function() {
@@ -233,6 +234,22 @@ $(document).ready(function() {
 		ComboData.fillComboData(this.id);
 	});
 
+	/*$("#data").on("click", '.fav', function ()  {
+		//shoud be some stuff with the database...this isn't real code for the final thing
+		for (var i = 0; i < ComboData.comboData.length; i++) {
+			var combo = ComboData.comboData[i];
+			if(combo['name']==$(this).closest('tr').find('td').first().html()){
+				if(combo['favorite']){
+					combo['favorite']=false;
+				} else{
+					combo['favorite']=true;
+				}
+			}
+		}
+		ComboData.initTable();
+		ComboData.fillComboData(prevHighlight);
+	});*/
+
 
     $.ajax({
       method: 'GET',
@@ -301,9 +318,9 @@ ComboData.fillComboData = function(charac, search, query) {
 					dataRow.append(convertToPicture(combo["combo"]));
 				} else if(attribute=="favorite"){
 					if(combo[attribute]){
-						dataRow.append($('<td class="fav"><i class="icon-heart"></i></td>'));
+						dataRow.append($('<td class="fav"><span class="difficulty">1</span><i class="icon-heart"></i></td>'));
 					} else{
-						dataRow.append($('<td class="fav"><i class="icon-heart-empty"></i></td>'));
+						dataRow.append($('<td class="fav"><span class="difficulty">0</span><i class="icon-heart-empty"></i></td>'));
 					}
 				} else if(attribute=="difficulty"){
                     var elt = $('<td>');
@@ -328,7 +345,7 @@ ComboData.fillComboData = function(charac, search, query) {
 					dataRow.append(elt);
 				
 				} else if (attribute == 'name') {
-                    var elt = $('<td>')
+                    var elt = $('<td>');
                     var span = $('<span class="combo_id">').text(combo['id']);
                     elt.text(combo['name']);
                     elt.append(span);
@@ -370,20 +387,28 @@ ComboData.fillComboData = function(charac, search, query) {
                 url: '/p4u/addFav/',
                 data: {'combo_id': combo_id},
                 success: function(data) {
+
                     console.log(data);
-                    if (data == -1) {
-                        console.log(this);
-                        td.html('<i class="icon-heart-empty"></i>');
-                    }
-                    else{
-                        console.log('full');
-                        td.html('<i class="icon-heart"></i>');
-                    }
+                    $.ajax({
+                          method: 'GET',
+                          url: '/p4u/getmycombos',
+                          dataType: 'json',
+                          success: function(data) {
+                            ComboData.comboData = data.combos;
+                            ComboData.initTable();
+                            ComboData.fillComboData();
+                          },
+                        });
                 }
             });
         });
     });
 
+};
+
+var refresh = function() {
+    ComboData.initTable();
+    ComboData.fillComboData();
 };
 	
 	
