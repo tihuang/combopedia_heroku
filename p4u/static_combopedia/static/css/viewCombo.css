@@ -13,7 +13,6 @@
 
 #infoContainer{
 	border: 1px solid black;
-	height: 700px;
 	padding: 30px;
 	background-color: #222;
 }
@@ -21,6 +20,7 @@
 #innerInfoContainer{
 	background-color: #fff;
 	height: 100%;
+    padding: 20px;
 }
 
 .comboInfo{
@@ -36,4 +36,10 @@
 #textInput{
   border: 1px solid black;
   padding: 5px;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+
+#disqus_thread {
+    border: 1px solid black;
 }
