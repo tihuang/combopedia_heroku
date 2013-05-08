@@ -12,6 +12,11 @@ def menu(request):
     return render_to_response('menu.html',
                               context_instance=RequestContext(request))
 
+
+def my_combos(request):
+    return render_to_response('myCombos.html',
+                              context_instance=RequestContext(request))
+
 def create(request):
     return render_to_response('comboInput.html',
                               context_instance=RequestContext(request))
@@ -139,6 +144,28 @@ def get_all_combos(request):
 
     return HttpResponse(json.dumps(comboData))
 
+def get_my_combos(request):
+    if request.user.is_authenticated():
+        comboData = []
+        for c in Combo.objects.filter(creator = request.user):
+            data = {}
+            data['id'] = c.id
+            data['character'] = str(c.character)
+            data['name'] = c.name
+            data['combo'] = c.combo_input
+            data['type'] = str(c.combo_type)
+            data['damage'] = c.damage
+            data['meterGain'] = c.meter_gain
+            data['meterDrain'] = c.meter_drain
+            data['difficulty'] = c.difficulty
+            data['creator'] = c.creator.username
+            data['favorite'] = False
+
+            comboData.append(data)
+
+        return HttpResponse(json.dumps(comboData))
+
+
 
 def view_combo(request, combo_id):
     try:
@@ -155,3 +182,5 @@ def view_combo(request, combo_id):
                                   context_instance=RequestContext(request))
     except Exception:
         return render_to_response('viewCombo.html')
+
+

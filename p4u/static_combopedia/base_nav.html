@@ -10,11 +10,17 @@
 			  <a class="brand" id='brand' href="/p4u"><img src="/static/img/logo/logo2.png" id='logo' /></a>
 			  <div class="nav-collapse collapse">
         {% if user.is_authenticated %}
-        <span id='logout'><a href='/logout/'>Logout</a></span>
-        <span id='welcome'>Welcome, <b>{{user.username}}</b></span>
+        <div>        
+          <p id='welcome'><span>Welcome, <b>{{user.username}}</b></span></p>
+          <p id='myMenu'>
+            <span id='myCombos'><a href='/p4u/myCombos'>My Combos</a></span>
+            |
+            <span id='logout'><a href='/logout/'>Logout</a></span>
+          </p>
+        </div>
         {% else %}
 				<form class="navbar-form pull-right" id='loginForm'>
-				  <input class="span2" name='username' type="text" placeholder="Email">
+				  <input class="span2" name='username' type="text" placeholder="Username">
 				  <input class="span2" name='password' type="password" placeholder="Password">
 				  <button type="submit" class="btn">Sign in</button>
       {% csrf_token %}

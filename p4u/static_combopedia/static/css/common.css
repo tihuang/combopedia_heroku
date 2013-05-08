@@ -52,11 +52,24 @@ body {
 #welcome {
   font-size: 1.5em;
   color: white;
-  float: right;
+  text-align: right;
   margin-top: 10px;
+  margin-bottom: 0px;
 }
 
-#logout {
-  float: right;
-  margin-top: 10px;
+#myMenu {
+  text-align: right;
+}
+.clear {
+  clear: right;
+  height: 0px;
+}
+
+#myCombos, #logout {
+  margin: 0px 5px;
+}
+
+#mycombostatus {
+  color: gray;
+  text-align: center;
 }
