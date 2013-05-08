@@ -110,7 +110,7 @@ table{
 /* Sidebar */
 
 #sidebar-nav {
-	padding: 20px 5px;
+	padding: 5px;
 }
 
 #sidebar-nav li {
@@ -185,3 +185,6 @@ table{
 	z-index: 10;
 }
 
+.difficulty, .combo_id {
+  display: none;
+}
