@@ -347,8 +347,8 @@ ComboData.fillComboData = function(charac, search, query) {
 	$('#data').tablesorter({ headers: { 2:{sorter:false} } });
     
     // add click handler
-	$("#data tr").each(function(i, v) {
-      console.log(v);
+	$("tr.linkToComboPage").each(function(i, v) {
+
       $(v).click(function(e){
         var combo_id = $(this).find('.combo_id').text();
 		$(location).attr('href',"/p4u/view/" + combo_id);
