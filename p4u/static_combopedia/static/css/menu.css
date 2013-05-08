@@ -185,6 +185,6 @@ table{
 	z-index: 10;
 }
 
-.difficulty {
+.difficulty, .combo_id {
   display: none;
 }

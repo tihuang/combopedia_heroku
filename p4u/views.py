@@ -124,6 +124,7 @@ def get_all_combos(request):
     comboData = []
     for c in Combo.objects.all():
         data = {}
+        data['id'] = c.id
         data['character'] = str(c.character)
         data['name'] = c.name
         data['combo'] = c.combo_input
