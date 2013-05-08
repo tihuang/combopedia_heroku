@@ -480,7 +480,9 @@ var Gamepad = function() {
 		});
 		
         var num = Gamepad.inputQueue[joystickQueue.length-1];			
-		if (num!=undefined && num.length > 0 && 0 <= parseInt(num) && parseInt(num) <= 9)
+        if (joystickQueue.length == 0) 
+            Knob.position($('#knob'), 5); 
+        else if (num!=undefined && intRegex.test(num))
 			Knob.position($('#knob'), num);
 		Gamepad.btnSel = btnQueueUnique.join('');
 
